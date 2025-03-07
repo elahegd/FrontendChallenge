@@ -1,6 +1,11 @@
-
 <main class="main">
-  <h1>Hello! 👋</h1>
+  <app-countdown-display 
+    [title]="inputValue" 
+    [endDate]="selectedDate"
+    (storedTitle)="inputValue = $event"
+    (storedDate)="selectedDate = $event">
+  </app-countdown-display>
+  <app-countdown-input [(inputValue)]="inputValue" [(selectedDate)]="selectedDate"></app-countdown-input>
 </main>
 
 <router-outlet />

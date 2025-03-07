@@ -1,0 +1,21 @@
+<div class="countdown-input-container">
+    <div class="input-container">
+        <input type="text" 
+               id="countdown-input" 
+               class="floating-input" 
+               [ngModel]="inputValue"
+               (ngModelChange)="onInputValueChange($event)"
+               placeholder="">
+        <label for="countdown-input" class="floating-label">Title</label>
+      </div>
+      
+      <div class="input-container">
+        <input type="date" 
+               id="date-input" 
+               class="floating-input" 
+               [ngModel]="selectedDate"
+               (ngModelChange)="onSelectedDateChange($event)"
+               [min]="today">
+        <label for="date-input" class="floating-label">Date</label>
+      </div>
+</div>

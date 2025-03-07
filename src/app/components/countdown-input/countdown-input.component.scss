@@ -1,0 +1,56 @@
+.countdown-input-container {
+  display: flex;
+  gap: 16px;
+}
+
+.input-container {
+  position: relative;
+  width: 100%;
+}
+
+.floating-input {
+  padding: 12px;
+  border: 1px solid #757575;
+  border-radius: 4px;
+  font-size: 16px;
+  outline: none;
+  transition: border-color 0.3s ease;
+  background-color: transparent;
+
+  &:focus {
+    border-color: #444;
+  }
+
+  &:focus + .floating-label,
+  &:not(:placeholder-shown) + .floating-label {
+    transform: translateY(-30px) scale(0.8);
+    color: #444;
+    left: 0;
+  }
+
+  &[type="date"] {
+    color-scheme: light;
+    cursor: pointer;
+  }
+}
+
+.floating-label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #444;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  background-color: #F5F3F3;
+  padding: 0 4px;
+}
+
+@media (max-width: 768px) {
+  .countdown-input-container {
+    flex-direction: column;
+  }
+  .floating-input {
+    width: -webkit-fill-available;
+  }
+}
