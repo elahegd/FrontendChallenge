@@ -10,7 +10,7 @@ A responsive countdown application built with Angular that allows users to track
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/elahegd/countdown.git
+git clone https://github.com/elahegd/FrontendChallenge.git
 ```
 
 2. Install dependencies:
