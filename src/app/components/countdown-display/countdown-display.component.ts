@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class CountdownDisplayComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('titleElement') titleElement!: ElementRef;
-  @ViewChild('titleContainer') titleContainer!: ElementRef;
+  @ViewChild('timeRemainingContainer') timeRemainingContainer!: ElementRef;
 
   @Output() storedTitle = new EventEmitter<string>();
   @Output() storedDate = new EventEmitter<string>();
@@ -33,6 +33,7 @@ export class CountdownDisplayComponent implements OnInit, OnDestroy, AfterViewIn
     if (this._endDate !== value) {
       this._endDate = value;
       localStorage.setItem('countdownDate', value);
+      setTimeout(() => this.updateTimeRemainingFontSize(), 0);
     }
   }
   get endDate(): string {
@@ -42,6 +43,7 @@ export class CountdownDisplayComponent implements OnInit, OnDestroy, AfterViewIn
   private _title: string = '';
   private _endDate: string = '';
   titleFontSize: string = '2.5rem';
+  timeRemainingFontSize: string = '2rem';
   timeRemaining = {
     days: 0,
     hours: 0,
@@ -60,7 +62,9 @@ export class CountdownDisplayComponent implements OnInit, OnDestroy, AfterViewIn
 
   ngAfterViewInit() {
     this.updateTitleFontSize();
+    this.updateTimeRemainingFontSize();
     window.addEventListener('resize', () => this.updateTitleFontSize());
+    window.addEventListener('resize', () => this.updateTimeRemainingFontSize());
   }
 
   ngOnDestroy() {
@@ -91,27 +95,56 @@ export class CountdownDisplayComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
   private updateTitleFontSize(): void {
-    if (!this.titleElement || !this.titleContainer) return;
+    if (!this.titleElement) return;
 
     const containerWidth = document.documentElement.clientWidth;
     const title = this.titleElement.nativeElement;
-    const maxFontSize = 2.5;
-    const minFontSize = 0.5;
-    const padding = 40;
+    
+    this.titleFontSize = this.calculateFontSize(title, containerWidth);
+    this.cdr.detectChanges();
+  }
+
+  private updateTimeRemainingFontSize(): void {
+    if (!this.timeRemainingContainer) return;
+
+    const containerWidth = this.timeRemainingContainer.nativeElement.offsetWidth;
+    const timeRemaining = this.timeRemainingContainer.nativeElement;
+
+    this.timeRemainingFontSize = this.calculateFontSize(timeRemaining, containerWidth, {
+      maxFontSize: 2,
+      minFontSize: 1.5,
+      padding: 20
+    });
+    this.cdr.detectChanges();
+  }
+
+  private calculateFontSize(
+    element: HTMLElement, 
+    containerWidth: number,
+    options: {
+      maxFontSize?: number;
+      minFontSize?: number;
+      padding?: number;
+    } = {}
+  ): string {
+    const {
+      maxFontSize = 2.5,
+      minFontSize = 0.5,
+      padding = 40
+    } = options;
     
     let fontSize = maxFontSize;
-    title.style.fontSize = `${fontSize}rem`;
+    element.style.fontSize = `${fontSize}rem`;
 
     while (fontSize > minFontSize) {
-      if (title.scrollWidth < containerWidth - padding) {
+      if (element.scrollWidth < containerWidth - padding) {
         break;
       }
-      fontSize = fontSize - 0.1;
-      title.style.fontSize = `${fontSize}rem`;
+      fontSize = parseFloat((fontSize - 0.1).toFixed(1));
+      element.style.fontSize = `${fontSize}rem`;
     }
 
-    this.titleFontSize = `${fontSize}rem`;
-    this.cdr.detectChanges();
+    return `${fontSize}rem`;
   }
 
   private updateTimeRemaining(): void {
@@ -144,5 +177,6 @@ export class CountdownDisplayComponent implements OnInit, OnDestroy, AfterViewIn
       clearInterval(this.timer);
     }
     window.removeEventListener('resize', () => this.updateTitleFontSize());
+    window.removeEventListener('resize', () => this.updateTimeRemainingFontSize());
   }
 }

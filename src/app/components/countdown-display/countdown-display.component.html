@@ -1,12 +1,12 @@
 <div class="countdown-display">
-  <div class="title-container" #titleContainer>
+  <div class="title-container">
     <h1 class="title" #titleElement [style.fontSize]="titleFontSize">Time to {{ title }}</h1>
   </div>
 
-  <div class="time-remaining" *ngIf="timeRemaining.days > 0 || timeRemaining.hours > 0 || timeRemaining.minutes > 0 || timeRemaining.seconds > 0">
-    <span>{{ timeRemaining.days }} days, </span>
-    <span>{{ timeRemaining.hours }} h, </span>
-    <span>{{ timeRemaining.minutes }} m, </span>
-    <span>{{ timeRemaining.seconds }} s</span>
+  <div class="time-remaining" #timeRemainingContainer *ngIf="timeRemaining.days > 0 || timeRemaining.hours > 0 || timeRemaining.minutes > 0 || timeRemaining.seconds > 0">
+    <span [style.fontSize]="timeRemainingFontSize">{{ timeRemaining.days }} days, </span>
+    <span [style.fontSize]="timeRemainingFontSize">{{ timeRemaining.hours }} h, </span>
+    <span [style.fontSize]="timeRemainingFontSize">{{ timeRemaining.minutes }} m, </span>
+    <span [style.fontSize]="timeRemainingFontSize">{{ timeRemaining.seconds }} s</span>
   </div>
 </div>
