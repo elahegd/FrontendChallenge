@@ -1,33 +1,46 @@
-# Description & requirements
+# CountDown
 
-Your objective in this assignment is to create a countdown app built using this boilerplate (+ any other tools of your choice) that follows the design specifications provided [in this Figma file](https://www.figma.com/file/UPEugUz5jM9IzIkWft2Y9m/NC-challenge). The app should work in portrait as well as in landscape mode while the text displayed on the screen should always fill the whole width of the screen.
+A responsive countdown application built with Angular that allows users to track time remaining until a specific event. The app features dynamic text resizing and works seamlessly in both portrait and landscape modes.
 
-In your app, it should be possible to define the end date and the name of the event taking place on that day. The countdown should always start from the current time and it should display the time remaining to your specified end date in the following format: Days, Hours(h), Minutes(m), Seconds(s) *(e.g., 3 days, 15 h, 20 m, 5 s)*. To make sure the text always covers the entire screen width, it should resize whenever necessary to achieve this objective.
+## Demo
 
-The purpose of the solution is to “fit” the input text into an element in one line (no line breaks, filling the whole width) using the maximum possible font-size.
+[View Live Demo](https://challenge-countdown.netlify.app)
 
-Please make sure that your text fit solution is reusable and that the event name, as well as the specified end date, are persisted between page reloads.
+## Installation
 
-**Once you feel ready to share your solution, please:**
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/countdown.git
+```
 
-- Commit the code to Github or your favorite VCS.
-- Write a simple README.md explaining how to set up the project (assuming it’s read by a developer who is experienced with all the used tools).
-- Include a URL to a deployed working Web page (use netlify.com or github.io or whatever simple hosting tool that works for you).
+2. Install dependencies:
+```bash
+npm install
+```
 
-Please put the resulting project in a public github repository and provide a link to it. Please make it easy for us to test the result.
+3. Start the development server:
+```bash
+ng serve
+```
 
-## Optional goals
+4. Navigate to `http://localhost:4200/` in your browser.
 
-You’re free to complete this additional goal to get a higher score if you want!
+## Usage
 
-1. Write suggestions of how this solution can be improved. Describe what the next steps would be in order for this app to be production ready. 
+1. Enter an event name in the title input field
+2. Select a target date using the date picker
+3. The countdown will automatically start and display the time remaining
+4. The text will automatically resize to fit the screen width
 
-## Running the app
+## Run unit-test
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files. 
+Run `ng test` for unit tests.
 
-## Further help
+## Future Improvements
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.6.
+1. Add individual clear buttons (X icons) for both the title input and date picker fields
+2. Enhance the empty state UI with placeholder text and maybe indicators
+3. Include a "Set Reminder" option to notify users when the countdown ends
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
